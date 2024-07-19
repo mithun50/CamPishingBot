@@ -1,10 +1,11 @@
+require('dotenv').config();
 const fs = require("fs");
 const express = require("express");
 var cors = require('cors');
 var bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot("7450734172:AAFGuD6_aS6X0dl2X5CDQ9Mr_9eJNQ8rBVk", {polling: true});
+const bot = new TelegramBot(process.env["TGBToken"], {polling: true});
 var jsonParser=bodyParser.json({limit:1024*1024*20, type:'application/json'});
 var urlencodedParser=bodyParser.urlencoded({ extended:true,limit:1024*1024*20,type:'application/x-www-form-urlencoded' });
 const btoa = require('btoa');

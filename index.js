@@ -16,7 +16,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="https://cloudflare-ggfe.onrender.com";
+var hostURL="https://cloudflare-wvyw.onrender.com";
 //TOGGLE for Shortes
 var use1pt=false;
 

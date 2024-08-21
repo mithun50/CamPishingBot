@@ -1,5 +1,4 @@
 ## CamPishingBot
-
 CamPishingBot is a Telegram bot designed to simulate phishing scenarios and provide security awareness training. This bot supports URL shortening, user interaction tracking, and various administrative controls.
 
 ## Features
@@ -35,6 +34,7 @@ To set up CamPishingBot locally, follow these steps:
    Create a `.env` file in the project root and add your Telegram bot token:
    ```env
    TGBToken=your-telegram-bot-token
+   HOST_URL=your-host-url
    ```
 
 5. **Run the Bot:**

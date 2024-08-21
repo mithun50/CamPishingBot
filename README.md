@@ -40,7 +40,7 @@ To set up CamPishingBot locally, follow these steps:
 5. **Run the Bot:**
    Start the bot with:
    ```bash
-   node main.js
+   node index.js
    ```
 
 6. **Interact with the Bot:**

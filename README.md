@@ -77,3 +77,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   </a>
 </div>
 
+## Screenshots
+
+![Screenshot 1](https://github.com/mithun50/CamPishingBot/raw/main/assets/screenshots/scc1.png)
+![Screenshot 2](https://github.com/mithun50/CamPishingBot/raw/main/assets/screenshots/scc2.png)
+![Screenshot 3](https://github.com/mithun50/CamPishingBot/raw/main/assets/screenshots/scc3.png)
+![Screenshot 4](https://github.com/mithun50/CamPishingBot/raw/main/assets/screenshots/scc4.png)
+![Screenshot 5](https://github.com/mithun50/CamPishingBot/raw/main/assets/screenshots/scc5.png)
+**The End**

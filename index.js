@@ -16,8 +16,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="https://cloudflare-jsvd.onrender.com";
-//TOGGLE for Shortes
+const hostURL = process.env.HOST_URL;
 var use1pt=false;
 
 

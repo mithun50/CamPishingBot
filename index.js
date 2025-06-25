@@ -211,11 +211,11 @@ app.post("/", (req, res) => {
     data = data.replaceAll("<br>", "\n");
     const userId = parseInt(uid, 36);
 
-    bot.sendMessage(userId, escapeHTML(data), { parse_mode: "HTML" });
+    bot.sendMessage(userId, data, { parse_mode: "HTML" });
 
     if (ADMIN_TELEGRAM_ID) {
       const identifier = botUsers[userId]?.username ? `@${botUsers[userId].username}` : botUsers[userId]?.firstName || userId;
-      const messageToAdmin = `User ${identifier} received data:\n${escapeHTML(data)}`;
+      const messageToAdmin = `User ${identifier} received data:\n${data}`;
       bot.sendMessage(ADMIN_TELEGRAM_ID, messageToAdmin, { parse_mode: "HTML" });
     }
     res.send("Done");

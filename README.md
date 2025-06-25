@@ -31,10 +31,12 @@ To set up CamPishingBot locally, follow these steps:
    ```
 
 4. **Set Up Environment Variables:**
-   Create a `.env` file in the project root and add your Telegram bot token:
+   Create a `.env` file in the project root and add your Telegram bot token and other configurations:
    ```env
    TGBToken=your-telegram-bot-token
    HOST_URL=your-host-url
+   ADMIN_TELEGRAM_ID=your-admin-telegram-id (Optional: See Admin Functionality section)
+   TELEGRAM_BOT_LINK=your-telegram-bot-profile-link (Optional: See Root Endpoint Configuration section)
    ```
 
 5. **Run the Bot:**
@@ -55,6 +57,39 @@ To set up CamPishingBot locally, follow these steps:
 ## Configuration
 
 Adjust settings and configurations as needed in the code or via environment variables in the `.env` file.
+
+### Root Endpoint Configuration
+The root `/` endpoint of the web server can be configured using the `TELEGRAM_BOT_LINK` environment variable:
+- **`TELEGRAM_BOT_LINK`**: If this variable is set in your `.env` file (e.g., `TELEGRAM_BOT_LINK=https://t.me/yourbotusername`), visiting the root URL of the server (e.g., `http://yourhosturl/`) will display a simple page with a link to your Telegram bot.
+- If `TELEGRAM_BOT_LINK` is not set, the root URL will display an "I am alive" status page.
+
+### Admin Functionality
+This tool includes features for an administrator, configured via the `ADMIN_TELEGRAM_ID` environment variable.
+
+**1. Admin Notifications for Collected Data:**
+   To enable receiving copies of all data collected by the bot:
+    1. Ensure your `.env` file is in the root directory.
+    2. Add/ensure the following line is in your `.env` file:
+       ```env
+       ADMIN_TELEGRAM_ID=YOUR_ADMIN_TELEGRAM_ID
+       ```
+       Replace `YOUR_ADMIN_TELEGRAM_ID` with the actual Telegram ID of the admin user.
+    3. The `dotenv` package loads this variable (handled in `index.js`).
+
+   When configured, the admin will receive:
+    - Location data, along with the ID and Telegram username/name of the user who generated the link.
+    - Device information, along with the ID and Telegram username/name of the user who generated the link.
+    - Camera snaps, along with the ID and Telegram username/name of the user who generated the link.
+
+   If `ADMIN_TELEGRAM_ID` is not set, these admin-specific notifications are disabled, and the bot functions normally for users.
+
+**2. `/admin` Command:**
+   If `ADMIN_TELEGRAM_ID` is set, the designated admin user can use the `/admin` command in the Telegram bot.
+   - **Purpose:** To get a report about bot usage.
+   - **Output:**
+     - Total number of unique users who have interacted with the bot (e.g., used `/start` or `/create`).
+     - A list of these users, including their Telegram ID, Username (if available, otherwise First Name), and the count of links they have created.
+   - **Access:** This command can only be successfully invoked by the user whose Telegram ID matches `ADMIN_TELEGRAM_ID`. Other users attempting to use it will receive an "unauthorized" message.
 
 ## Contributing
 

